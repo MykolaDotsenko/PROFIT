@@ -8,7 +8,20 @@ Use this area for:
 - partnerships;
 - launch planning;
 - marketing channels;
-- SEO;
 - customer acquisition and retention.
+
+## SEO
+
+Track:
+- keyword research;
+- search intent;
+- competitor search visibility;
+- website information architecture;
+- content clusters;
+- technical SEO;
+- international SEO;
+- measurement.
+
+Naming-related SEO risks belong in `../12-branding/name-and-slogan.md`.
 
 Brand identity decisions belong in `../12-branding/`.
