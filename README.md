@@ -1,31 +1,36 @@
 # PROFIT
 
-## Master Brand — final name under evaluation
+**[UNIQUE  BRAND] (**Agrelio, AgroMargin, MarginLoop, FarmROI, AGCONOMY, ACREZA, TILWARD, PROFIT)  
 
-Current brand candidates:
-
-**Agrelio • AgroMargin • MarginLoop • FarmROI • AGCONOMY • ACREZA • TILWARD • PROFIT**
-
-### From farm data to profitable action.
+### **From farm data to profitable action.**
 
 **Powered by the PROFIT Framework™**
 
-| PROFIT | Meaning | Promise |
-|---|---|---|
-| **P — Production** | Production performance | Optimize what you produce. |
-| **R — Revenue** | Revenue performance | Understand what you earn. |
-| **O — Operations** | Farm operations | Run the farm efficiently. |
-| **F — Finance** | Farm economics | Know the true economics. |
-| **I — Intelligence** | Decision intelligence | Turn data into better decisions. |
-| **T — Trade** | Buying and selling | Buy and sell at the right time. |
+**P — Production**
 
-## Core Value Flow
+Optimize what you produce.
+
+**R — Revenue**
+
+Understand what you earn.
+
+**O — Operations**
+
+Run the farm efficiently.
+
+**F — Finance**
+
+Know the true economics.
+
+**I — Intelligence**
+
+Turn data into better decisions.
+
+**T — Trade**
+
+Buy and sell at the right time.
 
 **Farm Data → PROFIT Framework → Intelligence → Action → Verified Profit**
-
-PROFIT is being designed as a farm profitability and decision platform that connects production, revenue, operations, finance, intelligence and trade around one goal: helping farmers turn fragmented farm data into better economic decisions and verified profit.
-
-The product is deliberately not another physical farm-control system. Its focus is the economic and decision layer above farm operations.
 
 ## Product Logic
 
