@@ -73,7 +73,7 @@ PROFIT will start as a **modular monolith** for the transactional product layer,
 | Testing | Jest/Supertest, pytest/Hypothesis, Vitest/Testing Library, Playwright |
 | Later, when justified | React Native, Athena, dbt, Kinesis, Go |
 
-The detailed technology decision, boundaries, rationale and phased adoption rules live in **[docs/13-architecture-engineering/technology-stack.md](docs/13-architecture-engineering/technology-stack.md)**.
+The detailed technology decision, boundaries, rationale and phased adoption rules live in **[docs/engineering/technology-stack.md](docs/13-architecture-engineering/technology-stack.md)**.
 
 ## Documentation
 
@@ -81,19 +81,14 @@ Product planning and project documentation are organized under **[docs/](docs/RE
 
 Key areas include:
 
-- product strategy and planning;
+- product;
 - farmer problems;
 - crop production;
 - livestock;
 - farm economics;
-- product modules;
-- requirements;
-- data and integrations;
-- UX and design;
 - branding;
-- architecture and engineering;
-- go-to-market and monetization;
-- competitor and market research.
+- engineering;
+- market.
 
 ## Engineering Principles
 
