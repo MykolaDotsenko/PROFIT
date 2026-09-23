@@ -1,21 +1,15 @@
-# Product Planning
+# Product Strategy and Planning
 
-This is the main planning hub for PROFIT.
+Keep this folder focused.
 
-Use these documents:
+## Core Documents
 
-1. `product-vision.md` — long-term direction and purpose.
-2. `target-customers.md` — who we build for first.
-3. `personas-jtbd/` — key users and Jobs To Be Done.
-4. `value-proposition.md` — why customers should use and pay for PROFIT.
-5. `product-discovery.md` — how we validate problems and solutions.
-6. `problem-priorities.md` — which farmer problems should be solved first.
-7. `business-case.md` — customer value, business value, cost and alternatives.
-8. `mvp-scope.md` — what is in and out of the MVP.
-9. `roadmap/` — what we plan to build and in what order.
-10. `metrics-kpis.md` — how success is measured.
-11. `assumptions-risks.md` — important assumptions and risks.
-12. `product-planning-checklist.md` — final check before implementation.
+1. `product-strategy.md` — vision, target customers and value proposition.
+2. `personas-jtbd/` — user roles and Jobs To Be Done.
+3. `product-planning.md` — discovery, prioritization, business case, assumptions, risks and readiness checklist.
+4. `mvp-scope.md` — what is in and out of the MVP.
+5. `roadmap.md` — Now / Next / Later product roadmap.
+6. `metrics-kpis.md` — how success is measured.
 
 ## Related Documentation
 
@@ -31,12 +25,11 @@ Use these documents:
 ## Rule
 
 Before major implementation, we should know:
-
 - what farmer problem we are solving;
 - who has the problem;
 - why it matters;
 - what outcome we expect;
 - what the MVP includes;
-- how we measure success;
+- how success will be measured;
 - what major risks exist;
-- what requirements engineering needs.
+- what engineering needs to build.
