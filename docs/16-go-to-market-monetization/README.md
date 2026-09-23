@@ -1,3 +1,14 @@
 # Go-to-Market and Monetization
 
-Pricing, packaging, monetization, sales motion, onboarding, customer success, partnerships and expansion.
+Use this area for:
+- pricing and packaging;
+- monetization;
+- sales strategy;
+- onboarding;
+- partnerships;
+- launch planning;
+- marketing channels;
+- SEO;
+- customer acquisition and retention.
+
+Brand identity decisions belong in `../12-branding/`.
