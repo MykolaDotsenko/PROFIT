@@ -1,24 +1,59 @@
 # PROFIT
 
-## FarmOps Profit Command Center
+## Master Brand — final name under evaluation
 
-### Production • Revenue • Operations • Finance • Intelligence • Trade
+Current brand candidates:
 
-**Turn farm decisions into verified profit.**
+**Agrelio • AgroMargin • MarginLoop • FarmROI • AGCONOMY • ACREZA • TILWARD • PROFIT**
 
-PROFIT is a farm profitability and commercial decision platform. It connects production, agronomy, finance, operations, procurement, sales, and trade to answer a practical question:
+### From farm data to profitable action.
 
-> **Which decision will improve the farmer's bottom line the most — and did it actually deliver the expected margin?**
+**Powered by the PROFIT Framework™**
 
-The product is deliberately not another physical farm-control system. Its core loop is:
+| PROFIT | Meaning | Promise |
+|---|---|---|
+| **P — Production** | Production performance | Optimize what you produce. |
+| **R — Revenue** | Revenue performance | Understand what you earn. |
+| **O — Operations** | Farm operations | Run the farm efficiently. |
+| **F — Finance** | Farm economics | Know the true economics. |
+| **I — Intelligence** | Decision intelligence | Turn data into better decisions. |
+| **T — Trade** | Buying and selling | Buy and sell at the right time. |
+
+## Core Value Flow
+
+**Farm Data → PROFIT Framework → Intelligence → Action → Verified Profit**
+
+PROFIT is being designed as a farm profitability and decision platform that connects production, revenue, operations, finance, intelligence and trade around one goal: helping farmers turn fragmented farm data into better economic decisions and verified profit.
+
+The product is deliberately not another physical farm-control system. Its focus is the economic and decision layer above farm operations.
+
+## Product Logic
 
 ```text
-Buy → Produce → Sell → Verify Margin → Improve
+Farm Data
+    ↓
+PROFIT Framework
+    ↓
+Intelligence
+    ↓
+Action
+    ↓
+Verified Profit
 ```
 
-## Target architecture
+The system should help answer practical questions such as:
 
-PROFIT will start as a **modular monolith** for the transactional product layer, with a separate **Python intelligence worker** for agronomy, modelling, statistics, and machine learning.
+- What is actually profitable?
+- Where are costs increasing?
+- Which field, crop, herd, activity or customer produces the best margin?
+- What decision should be taken next?
+- What was the expected economic result?
+- What actually happened after the decision?
+- Did the action create verified profit?
+
+## Target Architecture
+
+PROFIT will start as a **modular monolith** for the transactional product layer, with a separate **Python intelligence worker** for agronomy, modelling, statistics and machine learning.
 
 | Area | Planned technologies |
 | --- | --- |
@@ -33,17 +68,37 @@ PROFIT will start as a **modular monolith** for the transactional product layer,
 | Testing | Jest/Supertest, pytest/Hypothesis, Vitest/Testing Library, Playwright |
 | Later, when justified | React Native, Athena, dbt, Kinesis, Go |
 
-The detailed technology decision, boundaries, rationale, and phased adoption rules live in **[docs/technology-stack.md](docs/technology-stack.md)**.
+The detailed technology decision, boundaries, rationale and phased adoption rules live in **[docs/13-architecture-engineering/technology-stack.md](docs/13-architecture-engineering/technology-stack.md)**.
 
-## Engineering principles
+## Documentation
+
+Product planning and project documentation are organized under **[docs/](docs/README.md)**.
+
+Key areas include:
+
+- product strategy and planning;
+- farmer problems;
+- crop production;
+- livestock;
+- farm economics;
+- product modules;
+- requirements;
+- data and integrations;
+- UX and design;
+- branding;
+- architecture and engineering;
+- go-to-market and monetization;
+- competitor and market research.
+
+## Engineering Principles
 
 - Prefer clear domain boundaries over premature microservices.
-- Use asynchronous processing where failure isolation or long-running work justifies it.
-- Keep financial and agronomic calculations deterministic, testable, and auditable.
+- Keep financial and agronomic calculations deterministic, testable and auditable.
 - Treat AI as an interface to verified domain logic, not as the source of financial truth.
-- Design event consumers for retries, idempotency, dead-letter handling, and observability.
+- Use asynchronous processing where failure isolation or long-running work justifies it.
+- Design event consumers for retries, idempotency, dead-letter handling and observability.
 - Add infrastructure only when the product or measured system behaviour justifies it.
 
 ## Status
 
-Early architecture and product-design phase. The target stack is documented before implementation so future development can stay consistent and avoid unnecessary technology churn.
+Product planning, brand selection and architecture design are in progress.
