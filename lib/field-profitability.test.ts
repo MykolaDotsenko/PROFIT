@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { calculateFieldProfitability, type FieldProfitabilityInput } from "@/lib/field-profitability";
+import {
+  calculateFieldProfitability,
+  fieldProfitabilityInputSchema,
+  type FieldProfitabilityInput
+} from "@/lib/field-profitability";
 
 const base: FieldProfitabilityInput = {
   organizationId: "00000000-0000-4000-8000-000000000001",
@@ -36,16 +40,56 @@ describe("calculateFieldProfitability", () => {
     });
   });
 
-  it("cannot improve profit when a cost increases and everything else is unchanged", () => {
-    const first = calculateFieldProfitability(base);
-    const second = calculateFieldProfitability({
-      ...base,
-      costItems: [...base.costItems, { label: "Extra cost", type: "variable", amount: 1000 }]
-    });
-    expect(second.operatingProfit).toBeLessThan(first.operatingProfit);
+  it("never improves operating profit when a cost increases", () => {
+    for (const extraCost of [0.01, 1, 1000, 100000]) {
+      const first = calculateFieldProfitability(base);
+      const second = calculateFieldProfitability({
+        ...base,
+        costItems: [...base.costItems, { label: "Extra cost", type: "variable", amount: extraCost }]
+      });
+      expect(second.operatingProfit).toBeLessThanOrEqual(first.operatingProfit);
+    }
+  });
+
+  it("increases revenue and operating profit when price rises with all costs unchanged", () => {
+    const lower = calculateFieldProfitability({ ...base, pricePerT: 200 });
+    const higher = calculateFieldProfitability({ ...base, pricePerT: 250 });
+    expect(higher.revenue).toBeGreaterThan(lower.revenue);
+    expect(higher.operatingProfit).toBeGreaterThan(lower.operatingProfit);
+    expect(higher.operatingCosts).toBe(lower.operatingCosts);
   });
 
   it("returns null break-even price when yield is zero", () => {
     expect(calculateFieldProfitability({ ...base, yieldTPerHa: 0 }).breakEvenPricePerT).toBeNull();
+  });
+
+  it("returns null break-even yield when price is zero", () => {
+    expect(calculateFieldProfitability({ ...base, pricePerT: 0 }).breakEvenYieldTPerHa).toBeNull();
+  });
+
+  it("returns null ROI when no costs are allocated", () => {
+    expect(calculateFieldProfitability({ ...base, costItems: [] }).roiPct).toBeNull();
+  });
+
+  it("supports a loss-making field without masking the negative result", () => {
+    const result = calculateFieldProfitability({ ...base, pricePerT: 50 });
+    expect(result.operatingProfit).toBeLessThan(0);
+    expect(result.operatingMarginPct).toBeLessThan(0);
+    expect(result.roiPct).toBeLessThan(0);
+  });
+});
+
+describe("fieldProfitabilityInputSchema", () => {
+  it("rejects negative cost amounts", () => {
+    const result = fieldProfitabilityInputSchema.safeParse({
+      ...base,
+      costItems: [{ label: "Invalid", type: "variable", amount: -1 }]
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects malformed currency codes", () => {
+    const result = fieldProfitabilityInputSchema.safeParse({ ...base, currency: "EURO" });
+    expect(result.success).toBe(false);
   });
 });
