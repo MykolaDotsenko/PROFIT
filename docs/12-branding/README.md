@@ -1,15 +1,10 @@
 # Branding
 
-This folder contains all PROFIT brand planning and final brand decisions.
+Keep branding in four places:
 
-Use it in this order:
+1. `brand-strategy.md` — positioning, audience, brand promise, messaging and tone of voice.
+2. `name-and-slogan.md` — name and slogan candidates, evaluation, risks and final decision.
+3. `visual-identity.md` — logo, colors, typography, visual system and final usage guidelines.
+4. `brand-assets/` — approved asset files and references.
 
-1. `brand-strategy.md` — what the brand should represent.
-2. `name-and-slogan.md` — name, slogan, domain, language and trademark considerations.
-3. `logo.md` — logo concept, requirements and evaluation.
-4. `visual-identity.md` — colors, typography, iconography and visual language.
-5. `messaging-tone-of-voice.md` — brand message and communication style.
-6. `brand-guidelines.md` — final approved brand rules.
-7. `brand-assets/` — approved assets and references.
-
-Keep exploration and final decisions separate.
+Keep exploration and final decisions clearly separated inside these documents.
