@@ -1,68 +1,72 @@
 # PROFIT Documentation
 
-Документація PROFIT організована за простим принципом: **проблема фермера → знання про виробництво → економіка → продукт → реалізація**.
+PROFIT documentation follows a simple principle:
 
-## 1. Проблеми фермерів
+**Farmer problem → production knowledge → economics → product → implementation**
+
+## 1. Farmer Problems
 
 `02-farmer-problems/`
 
-Окремо:
-- `pigs/` — свинарство;
-- `cows/` — корови та молочне виробництво;
-- `vegetables/` — овочі;
-- `field-crops/` — польові культури;
-- `general/` — проблеми, спільні для різних господарств.
+Separated by farm type:
 
-Саме звідси повинні починатися нові ідеї функцій PROFIT.
+- `pigs/` — pig farming;
+- `cows/` — cattle and dairy farming;
+- `vegetables/` — vegetable production;
+- `field-crops/` — grains, oilseeds and other field crops;
+- `general/` — problems common across different farm types.
 
-## 2. Виробництво
+New PROFIT feature ideas should start from real farmer problems documented here.
 
-- `03-crop-production/` — рослинництво;
-- `04-livestock/` — тваринництво.
+## 2. Production
 
-Тут зберігаємо технології виробництва, процеси, ризики, KPI та галузеві знання.
+- `03-crop-production/` — crop production;
+- `04-livestock/` — livestock production.
 
-## 3. Економіка ферми
+This section stores production methods, workflows, risks, KPIs and domain knowledge.
 
-- `05-farm-economics/` — собівартість, маржа, ROI, бюджети, cash flow;
-- `06-profit-framework/` — Production, Revenue, Operations, Finance, Intelligence, Trade.
+## 3. Farm Economics
 
-## 4. Функції PROFIT
+- `05-farm-economics/` — costs, margins, ROI, budgets and cash flow;
+- `06-profit-framework/` — Production, Revenue, Operations, Finance, Intelligence and Trade.
 
-- `07-product-modules/` — Field Profitability, CRM, склад, персонал, ризики, торгівля;
-- `08-requirements-specifications/` — вимоги, PRD, user stories, acceptance criteria.
+## 4. PROFIT Product Modules
 
-## 5. Дані та AI
+- `07-product-modules/` — Field Profitability, CRM, inventory, workforce, risk management and trade;
+- `08-requirements-specifications/` — requirements, PRDs, user stories and acceptance criteria.
 
-- `09-data-integrations/` — API, погода, супутники, ринки та інші джерела даних;
-- `10-ai-intelligence/` — AI-аналітика, рекомендації, прогнозування.
+## 5. Data and AI
 
-## 6. Дизайн і бренд
+- `09-data-integrations/` — APIs, weather, satellite, market and other external data sources;
+- `10-ai-intelligence/` — AI analytics, recommendations and forecasting.
 
-- `11-ux-design/` — UX, екрани, сценарії користувачів;
-- `12-brand-marketing/` — назва, бренд, SEO, маркетинг.
+## 6. UX, Brand and Marketing
 
-## 7. Технічна частина
+- `11-ux-design/` — UX, screens and user flows;
+- `12-brand-marketing/` — naming, branding, SEO and marketing.
 
-- `13-architecture-engineering/` — архітектура і розробка;
-- `14-security-compliance/` — безпека і доступи;
-- `15-qa-validation/` — тести і перевірка якості.
+## 7. Engineering
 
-## 8. Бізнес і ринок
+- `13-architecture-engineering/` — architecture and software development;
+- `14-security-compliance/` — security, privacy and access control;
+- `15-qa-validation/` — testing and quality validation.
 
-- `01-product-strategy/` — стратегія і roadmap;
-- `16-go-to-market-monetization/` — ціни, монетизація, продажі;
-- `17-competitor-market-research/` — конкуренти і ринок;
-- `18-operations-support/` — внутрішні процеси.
+## 8. Business and Market
 
-## Службові папки
+- `01-product-strategy/` — product strategy and roadmap;
+- `16-go-to-market-monetization/` — pricing, monetization and sales;
+- `17-competitor-market-research/` — competitors and market research;
+- `18-operations-support/` — internal operating processes.
 
-- `00-governance/` — важливі рішення, терміни та правила документації;
-- `99-archive/` — застарілі матеріали.
+## Supporting Folders
 
-## Просте правило
+- `00-governance/` — important decisions, terminology and documentation rules;
+- `99-archive/` — outdated or superseded materials.
 
-Якщо знайшли проблему фермера — спочатку документуємо її в `02-farmer-problems/`.
-Потім, якщо вирішуємо її в PROFIT, створюємо відповідну специфікацію та прив'язуємо її до продуктового модуля.
+## Simple Rule
 
-Не дублюємо один і той самий матеріал у різних папках — краще дати посилання.
+When we discover a real farmer problem, document it first in `02-farmer-problems/`.
+
+If PROFIT will solve or reduce that problem, create the related product specification and link it to the appropriate product module.
+
+Do not duplicate the same information across multiple folders. Link to the canonical document instead.
