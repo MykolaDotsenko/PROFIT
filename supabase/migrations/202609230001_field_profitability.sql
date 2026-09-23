@@ -43,9 +43,14 @@ create table public.field_profitability_records (
   created_at timestamptz not null default now()
 );
 
-create index organization_members_user_idx on public.organization_members(user_id, organization_id);
-create index field_profitability_org_created_idx on public.field_profitability_records(organization_id, created_at desc);
-create index field_profitability_org_field_idx on public.field_profitability_records(organization_id, field_name);
+create index organization_members_user_idx
+  on public.organization_members(user_id, organization_id);
+
+create index field_profitability_org_created_idx
+  on public.field_profitability_records(organization_id, created_at desc);
+
+create index field_profitability_org_field_idx
+  on public.field_profitability_records(organization_id, field_name);
 
 alter table public.organizations enable row level security;
 alter table public.organization_members enable row level security;
@@ -54,19 +59,33 @@ alter table public.field_profitability_records enable row level security;
 grant select on public.organizations, public.organization_members, public.field_profitability_records to authenticated;
 revoke insert, update, delete on public.organizations, public.organization_members, public.field_profitability_records from anon, authenticated;
 
-create policy "members read organizations" on public.organizations for select to authenticated
-using (exists (select 1 from public.organization_members m where m.organization_id = id and m.user_id = (select auth.uid())));
+create policy "members read organizations"
+on public.organizations for select to authenticated
+using (
+  exists (
+    select 1
+    from public.organization_members m
+    where m.organization_id = id
+      and m.user_id = (select auth.uid())
+  )
+);
 
-create policy "members read memberships" on public.organization_members for select to authenticated
-using (user_id = (select auth.uid()) or exists (
-  select 1 from public.organization_members m
-  where m.organization_id = organization_members.organization_id
-    and m.user_id = (select auth.uid())
-    and m.role in ('owner','manager')
-));
+-- v1 only needs the signed-in user's own memberships.
+-- Keeping this predicate non-recursive avoids RLS self-reference.
+create policy "users read own memberships"
+on public.organization_members for select to authenticated
+using (user_id = (select auth.uid()));
 
-create policy "members read profitability" on public.field_profitability_records for select to authenticated
-using (exists (select 1 from public.organization_members m where m.organization_id = organization_id and m.user_id = (select auth.uid())));
+create policy "members read profitability"
+on public.field_profitability_records for select to authenticated
+using (
+  exists (
+    select 1
+    from public.organization_members m
+    where m.organization_id = organization_id
+      and m.user_id = (select auth.uid())
+  )
+);
 
 create or replace function public.create_organization_with_owner(p_name text)
 returns uuid
@@ -78,13 +97,25 @@ declare
   v_user uuid := auth.uid();
   v_org uuid;
 begin
-  if v_user is null then raise exception 'not_authenticated'; end if;
-  if p_name is null or char_length(trim(p_name)) not between 1 and 120 then raise exception 'invalid_name'; end if;
-  insert into public.organizations(name) values (trim(p_name)) returning id into v_org;
-  insert into public.organization_members(organization_id, user_id, role) values (v_org, v_user, 'owner');
+  if v_user is null then
+    raise exception 'not_authenticated';
+  end if;
+
+  if p_name is null or char_length(trim(p_name)) not between 1 and 120 then
+    raise exception 'invalid_name';
+  end if;
+
+  insert into public.organizations(name)
+  values (trim(p_name))
+  returning id into v_org;
+
+  insert into public.organization_members(organization_id, user_id, role)
+  values (v_org, v_user, 'owner');
+
   return v_org;
 end;
 $$;
+
 revoke all on function public.create_organization_with_owner(text) from public, anon;
 grant execute on function public.create_organization_with_owner(text) to authenticated;
 
@@ -97,8 +128,7 @@ create or replace function public.save_field_profitability(
   p_area_ha numeric,
   p_yield_t_ha numeric,
   p_price_per_t numeric,
-  p_cost_items jsonb,
-  p_metrics jsonb
+  p_cost_items jsonb
 ) returns uuid
 language plpgsql
 security definer
@@ -107,36 +137,99 @@ as $$
 declare
   v_user uuid := auth.uid();
   v_id uuid;
-  v_variable numeric;
-  v_fixed numeric;
-  v_revenue numeric;
-  v_operating_costs numeric;
-  v_profit numeric;
+  v_variable numeric(18,2);
+  v_fixed numeric(18,2);
+  v_revenue numeric(18,2);
+  v_operating_costs numeric(18,2);
+  v_gross_margin numeric(18,2);
+  v_profit numeric(18,2);
+  v_revenue_per_ha numeric(18,2);
+  v_cost_per_ha numeric(18,2);
+  v_profit_per_ha numeric(18,2);
+  v_margin_pct numeric(12,4);
+  v_roi_pct numeric(12,4);
+  v_break_even_price numeric(18,2);
+  v_break_even_yield numeric(14,4);
 begin
-  if v_user is null then raise exception 'not_authenticated'; end if;
-  if not exists (
-    select 1 from public.organization_members
-    where organization_id = p_organization_id and user_id = v_user and role in ('owner','manager')
-  ) then raise exception 'forbidden'; end if;
-  if p_area_ha <= 0 or p_yield_t_ha < 0 or p_price_per_t < 0 then raise exception 'invalid_input'; end if;
-  if jsonb_typeof(p_cost_items) <> 'array' then raise exception 'invalid_cost_items'; end if;
+  if v_user is null then
+    raise exception 'not_authenticated';
+  end if;
 
-  select coalesce(sum((item->>'amount')::numeric) filter (where item->>'type' = 'variable'),0),
-         coalesce(sum((item->>'amount')::numeric) filter (where item->>'type' = 'allocated_fixed'),0)
-    into v_variable, v_fixed
-  from jsonb_array_elements(p_cost_items) item
-  where (item->>'amount') ~ '^[0-9]+(\.[0-9]+)?$' and (item->>'amount')::numeric >= 0;
+  if not exists (
+    select 1
+    from public.organization_members
+    where organization_id = p_organization_id
+      and user_id = v_user
+      and role in ('owner','manager')
+  ) then
+    raise exception 'forbidden';
+  end if;
+
+  if p_field_name is null or char_length(trim(p_field_name)) not between 1 and 120
+     or p_crop is null or char_length(trim(p_crop)) not between 1 and 80
+     or p_season is null or char_length(trim(p_season)) not between 1 and 40
+     or p_currency is null or p_currency !~ '^[A-Za-z]{3}$'
+     or p_area_ha is null or p_area_ha <= 0 or p_area_ha > 1000000
+     or p_yield_t_ha is null or p_yield_t_ha < 0 or p_yield_t_ha > 1000
+     or p_price_per_t is null or p_price_per_t < 0 or p_price_per_t > 10000000 then
+    raise exception 'invalid_input';
+  end if;
+
+  if p_cost_items is null
+     or jsonb_typeof(p_cost_items) <> 'array'
+     or jsonb_array_length(p_cost_items) > 50 then
+    raise exception 'invalid_cost_items';
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(p_cost_items) item
+    where jsonb_typeof(item) <> 'object'
+       or jsonb_typeof(item->'label') is distinct from 'string'
+       or char_length(trim(coalesce(item->>'label',''))) not between 1 and 80
+       or coalesce(item->>'type','') not in ('variable','allocated_fixed')
+       or case
+            when jsonb_typeof(item->'amount') = 'number'
+              then (item->>'amount')::numeric < 0 or (item->>'amount')::numeric > 100000000
+            else true
+          end
+  ) then
+    raise exception 'invalid_cost_items';
+  end if;
+
+  select
+    round(coalesce(sum((item->>'amount')::numeric) filter (where item->>'type' = 'variable'), 0), 2),
+    round(coalesce(sum((item->>'amount')::numeric) filter (where item->>'type' = 'allocated_fixed'), 0), 2)
+  into v_variable, v_fixed
+  from jsonb_array_elements(p_cost_items) item;
 
   v_revenue := round(p_area_ha * p_yield_t_ha * p_price_per_t, 2);
   v_operating_costs := round(v_variable + v_fixed, 2);
+  v_gross_margin := round(v_revenue - v_variable, 2);
   v_profit := round(v_revenue - v_operating_costs, 2);
+  v_revenue_per_ha := round(v_revenue / p_area_ha, 2);
+  v_cost_per_ha := round(v_operating_costs / p_area_ha, 2);
+  v_profit_per_ha := round(v_profit / p_area_ha, 2);
 
-  if round((p_metrics->>'revenue')::numeric,2) <> v_revenue
-     or round((p_metrics->>'variableCosts')::numeric,2) <> round(v_variable,2)
-     or round((p_metrics->>'allocatedFixedCosts')::numeric,2) <> round(v_fixed,2)
-     or round((p_metrics->>'operatingProfit')::numeric,2) <> v_profit then
-    raise exception 'calculation_mismatch';
-  end if;
+  v_margin_pct := case
+    when v_revenue = 0 then null
+    else round((v_profit / v_revenue) * 100, 4)
+  end;
+
+  v_roi_pct := case
+    when v_operating_costs = 0 then null
+    else round((v_profit / v_operating_costs) * 100, 4)
+  end;
+
+  v_break_even_price := case
+    when p_area_ha * p_yield_t_ha = 0 then null
+    else round(v_operating_costs / (p_area_ha * p_yield_t_ha), 2)
+  end;
+
+  v_break_even_yield := case
+    when p_area_ha * p_price_per_t = 0 then null
+    else round(v_operating_costs / (p_area_ha * p_price_per_t), 4)
+  end;
 
   insert into public.field_profitability_records (
     organization_id, field_name, crop, season, currency, area_ha, yield_t_ha, price_per_t, cost_items,
@@ -146,19 +239,17 @@ begin
   ) values (
     p_organization_id, trim(p_field_name), trim(p_crop), trim(p_season), upper(p_currency)::char(3),
     p_area_ha, p_yield_t_ha, p_price_per_t, p_cost_items,
-    (p_metrics->>'revenue')::numeric, (p_metrics->>'variableCosts')::numeric,
-    (p_metrics->>'allocatedFixedCosts')::numeric, (p_metrics->>'operatingCosts')::numeric,
-    (p_metrics->>'grossMargin')::numeric, (p_metrics->>'operatingProfit')::numeric,
-    (p_metrics->>'revenuePerHa')::numeric, (p_metrics->>'costPerHa')::numeric,
-    (p_metrics->>'operatingProfitPerHa')::numeric,
-    nullif(p_metrics->>'operatingMarginPct','')::numeric,
-    nullif(p_metrics->>'roiPct','')::numeric,
-    nullif(p_metrics->>'breakEvenPricePerT','')::numeric,
-    nullif(p_metrics->>'breakEvenYieldTPerHa','')::numeric,
-    v_user
-  ) returning id into v_id;
+    v_revenue, v_variable, v_fixed, v_operating_costs, v_gross_margin, v_profit,
+    v_revenue_per_ha, v_cost_per_ha, v_profit_per_ha, v_margin_pct, v_roi_pct,
+    v_break_even_price, v_break_even_yield, v_user
+  )
+  returning id into v_id;
+
   return v_id;
 end;
 $$;
-revoke all on function public.save_field_profitability(uuid,text,text,text,text,numeric,numeric,numeric,jsonb,jsonb) from public, anon;
-grant execute on function public.save_field_profitability(uuid,text,text,text,text,numeric,numeric,numeric,jsonb,jsonb) to authenticated;
+
+revoke all on function public.save_field_profitability(uuid,text,text,text,text,numeric,numeric,numeric,jsonb)
+from public, anon;
+grant execute on function public.save_field_profitability(uuid,text,text,text,text,numeric,numeric,numeric,jsonb)
+to authenticated;

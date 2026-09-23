@@ -12,8 +12,8 @@ Excluded from v1: whole-farm P&L, tax, financing, depreciation policy, inventory
 For the first production module, PROFIT uses a deliberately small modular monolith:
 - Next.js App Router for UI + server boundary;
 - Supabase Auth + PostgreSQL for persistence and RLS;
-- deterministic TypeScript domain calculations;
-- PostgreSQL RPC as the transactional write boundary;
+- deterministic TypeScript calculations for instant UI preview;
+- PostgreSQL RPC as the authoritative transactional calculation/write boundary;
 - Vercel AI Gateway only for explanation, never calculation;
 - Vercel deployment/observability.
 
@@ -33,6 +33,9 @@ This supersedes the heavier NestJS/AWS deployment shape **for v1 only**. Service
 
 Null is returned when a denominator is zero.
 
+## Calculation integrity
+The browser calculates a preview for responsiveness. Persisted financial metrics are **recomputed in PostgreSQL from the validated raw inputs**; the database does not trust client-supplied revenue, margin, ROI or break-even results.
+
 ## Financial caveat
 "Operating profit" is intentionally used instead of "net profit". Unallocated whole-farm overhead, financing, tax and owner-specific accounting items are excluded unless the farmer allocates them as costs.
 
@@ -42,6 +45,7 @@ Null is returned when a denominator is zero.
 - Writes occur through narrow SECURITY DEFINER RPCs.
 - RPC execute is revoked from PUBLIC/anon and granted only to authenticated.
 - Each RPC checks auth.uid() and organization membership/role.
+- Membership RLS is deliberately non-recursive in v1.
 - No service-role key is used by the web client.
 - AI only receives data already accessible to the authenticated user through RLS.
 
@@ -56,4 +60,4 @@ Null is returned when a denominator is zero.
 8. Production promotion only after the same preview artifact passes verification.
 
 ## Monitoring
-Emit structured errors for AI failures. Enable Vercel Web Analytics and Speed Insights when the Vercel project is linked; monitor runtime 5xx, auth failures, RPC errors and AI fallback rate. Add external drains/Sentry only when traffic or operational requirements justify them.
+Emit structured errors for organization creation, profitability writes and AI failures. Enable Vercel Web Analytics and Speed Insights when the Vercel project is linked; monitor runtime 5xx, auth failures, RPC errors and AI fallback rate. Add external drains/Sentry only when traffic or operational requirements justify them.
