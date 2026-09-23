@@ -11,7 +11,28 @@ Includes:
 - security and access control;
 - testing and QA;
 - observability;
-- technical AI implementation;
-- architecture decisions.
+- technical AI implementation.
 
-Avoid creating separate top-level folders for these topics unless the documentation becomes large enough to justify it.
+## Architecture Decisions
+
+For important technical decisions, record:
+
+### Decision
+What was decided?
+
+### Context
+Why was a decision required?
+
+### Options
+What alternatives were considered?
+
+### Rationale
+Why was this option selected?
+
+### Consequences
+What benefits, costs, risks or limitations does the decision create?
+
+### Status
+Proposed / Accepted / Superseded.
+
+Do not create a separate file for trivial implementation choices.
