@@ -1,6 +1,6 @@
 # PROFIT
 
-**[UNIQUE  BRAND] (**Agrelio, AgroMargin, MarginLoop, FarmROI, AGCONOMY, ACREZA, TILWARD, PROFIT)  
+**[UNIQUE  BRAND] (**Agrelio, AgroMargin, MarginLoop, FarmROI, AGCONOMY, ACREZA, TILWARD, RURENA, PROFIT)  
 
 ### **From farm data to profitable action.**
 
