@@ -2,58 +2,67 @@
 
 PROFIT documentation follows a simple principle:
 
-**Farmer problem → production knowledge → economics → product → implementation**
+**Farmer problem → production knowledge → economics → product planning → requirements → implementation**
 
-## 1. Farmer Problems
+## 1. Product Planning
+
+- `01-product-strategy/` — vision, target customers, JTBD, value proposition, MVP, priorities, roadmap, KPIs, research, risks, business cases and release planning.
+
+This is the main planning hub for PROFIT.
+
+## 2. Farmer Problems
 
 `02-farmer-problems/`
 
 Separated by farm type:
-
 - `pigs/` — pig farming;
 - `cows/` — cattle and dairy farming;
 - `vegetables/` — vegetable production;
 - `field-crops/` — grains, oilseeds and other field crops;
-- `general/` — problems common across different farm types.
+- `general/` — problems common across farm types.
 
-New PROFIT feature ideas should start from real farmer problems documented here.
+New product ideas should start from documented farmer problems.
 
-## 2. Production
+## 3. Production Knowledge
 
 - `03-crop-production/` — crop production;
 - `04-livestock/` — livestock production.
 
-This section stores production methods, workflows, risks, KPIs and domain knowledge.
-
-## 3. Farm Economics
+## 4. Farm Economics
 
 - `05-farm-economics/` — costs, margins, ROI, budgets and cash flow;
 - `06-profit-framework/` — Production, Revenue, Operations, Finance, Intelligence and Trade.
 
-## 4. PROFIT Product Modules
+## 5. PROFIT Product Modules
 
 - `07-product-modules/` — Field Profitability, CRM, inventory, workforce, risk management and trade;
 - `08-requirements-specifications/` — requirements, PRDs, user stories and acceptance criteria.
 
-## 5. Data and AI
+## 6. Data and AI
 
 - `09-data-integrations/` — APIs, weather, satellite, market and other external data sources;
 - `10-ai-intelligence/` — AI analytics, recommendations and forecasting.
 
-## 6. UX, Brand and Marketing
+## 7. UX
 
-- `11-ux-design/` — UX, screens and user flows;
-- `12-brand-marketing/` — naming, branding, SEO and marketing.
+- `11-ux-design/` — UX research, screens, flows and design-system documentation.
 
-## 7. Engineering
+## 8. Branding
+
+- `12-branding/` — brand strategy, name, slogan, logo, visual identity, messaging, tone of voice, brand risks and final brand guidelines.
+
+## 9. Marketing
+
+- `12-marketing/` — SEO, content, campaigns, acquisition and launch marketing.
+
+## 10. Engineering
 
 - `13-architecture-engineering/` — architecture and software development;
 - `14-security-compliance/` — security, privacy and access control;
 - `15-qa-validation/` — testing and quality validation.
 
-## 8. Business and Market
+## 11. Business and Market
 
-- `01-product-strategy/` — product strategy and roadmap;
 - `16-go-to-market-monetization/` — pricing, monetization and sales;
 - `17-competitor-market-research/` — competitors and market research;
 - `18-operations-support/` — internal operating processes.
@@ -63,10 +72,18 @@ This section stores production methods, workflows, risks, KPIs and domain knowle
 - `00-governance/` — important decisions, terminology and documentation rules;
 - `99-archive/` — outdated or superseded materials.
 
-## Simple Rule
+## Simple Product Rule
 
-When we discover a real farmer problem, document it first in `02-farmer-problems/`.
+Before major implementation, PROFIT should have:
 
-If PROFIT will solve or reduce that problem, create the related product specification and link it to the appropriate product module.
+1. a documented farmer problem;
+2. a defined target user;
+3. evidence that the problem matters;
+4. an expected measurable outcome;
+5. an MVP scope;
+6. priority reasoning;
+7. product requirements;
+8. success metrics;
+9. known risks and dependencies.
 
 Do not duplicate the same information across multiple folders. Link to the canonical document instead.
