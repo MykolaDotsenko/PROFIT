@@ -2,7 +2,12 @@
 
 PROFIT uses a pull-based delivery workflow designed to maximize reliable flow and verified customer value.
 
-Read **[Development Operating System](docs/engineering/development-operating-system.md)** before starting material work.
+Read:
+
+- **[Development Operating System](docs/engineering/development-operating-system.md)**
+- **[Repository Governance](docs/engineering/repository-governance.md)**
+
+before starting material work.
 
 ## Workflow
 
@@ -29,6 +34,7 @@ Read **[Development Operating System](docs/engineering/development-operating-sys
 - Explain risk and verification evidence.
 - Do not merge material financial/agronomic logic without independent verification.
 - Do not treat an LLM output as authoritative financial, agronomic or statistical truth.
+- Never commit credentials, production secrets or private customer data.
 
 ## Definition of Done
 
