@@ -4,6 +4,8 @@ PROFIT uses a pull-based delivery workflow designed to maximize reliable flow an
 
 Read **[Development Operating System](docs/engineering/development-operating-system.md)** before starting material work.
 
+For product UI/UX changes also read **[PROFIT Design System v0.1](docs/product/design-system/README.md)**.
+
 ## Workflow
 
 `Backlog → Todo → In Progress → Review → Verify → Done`
@@ -29,6 +31,9 @@ Read **[Development Operating System](docs/engineering/development-operating-sys
 - Explain risk and verification evidence.
 - Do not merge material financial/agronomic logic without independent verification.
 - Do not treat an LLM output as authoritative financial, agronomic or statistical truth.
+- For UI changes, reuse existing design-system patterns before creating new shared components.
+- Do not present estimated/modelled/predicted values as observed.
+- Target WCAG 2.2 AA for production UI and verify relevant keyboard/focus/content states.
 
 ## Definition of Done
 

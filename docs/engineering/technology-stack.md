@@ -108,6 +108,9 @@ The application can evolve into separate services only after domain boundaries, 
 - **TanStack Query**
 - **Zod**
 - **Tailwind CSS**
+- **shadcn/ui**
+- **Radix / equivalent accessible primitives where used by the chosen component implementation**
+- **Storybook**
 - **ECharts**
 - **MapLibre**
 
@@ -131,6 +134,18 @@ The web application will host:
 React + TypeScript gives a strongly typed product surface and lets us share contracts and generated API types with the backend. Next.js provides a mature application framework without requiring a separate frontend platform.
 
 MapLibre is used for farm and paddock visualisation. The goal is **economic and agronomic mapping**, not physical-farm-control functionality.
+
+### Product design system
+
+PROFIT uses a production-oriented design-system contract documented in **[../product/design-system/README.md](../product/design-system/README.md)**.
+
+- Figma owns UX/design intent.
+- Semantic token names are defined as a shared design/code contract.
+- shadcn/ui and accessible primitives provide commodity interaction building blocks.
+- PROFIT-specific components concentrate on economic, confidence, evidence and decision workflows.
+- Storybook becomes the catalogue of reusable production component states once the web application exists.
+- Production React behaviour is authoritative for what actually ships.
+- Final token values must not be invented before branding/accessibility decisions are approved.
 
 ---
 
@@ -621,6 +636,8 @@ As implementation begins, prefer a structure similar to:
 ├── packages/
 │   ├── contracts/
 │   ├── domain-types/
+│   ├── design-tokens/     # when brand/token values are approved
+│   ├── ui/                # shared production components when justified
 │   └── config/
 ├── infrastructure/
 │   └── terraform/
@@ -641,6 +658,9 @@ The exact layout may evolve, but boundaries between product application code, in
 React
 Next.js
 TypeScript
+Tailwind CSS
+shadcn/ui
+Storybook
 
 Node.js
 NestJS
