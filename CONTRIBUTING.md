@@ -28,7 +28,8 @@ before starting material work.
 
 ## Pull requests
 
-- Reference the issue.
+- Reference the issue with `Refs #123` when post-merge Verify is still required.
+- Use `Closes #123` only when merge itself satisfies Definition of Done.
 - Keep scope narrow.
 - Include appropriate tests.
 - Explain risk and verification evidence.

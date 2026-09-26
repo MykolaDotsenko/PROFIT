@@ -61,6 +61,8 @@ These are starting hypotheses and must be recalibrated after 30–50 completed w
 | Verify | 2 |
 | Expedite | 1 |
 
+In GitHub Projects, configure Todo, In Progress, Review and Verify as native **board column limits**. These are soft/advisory WIP limits: GitHub highlights an exceeded limit but does not prevent additional cards or automations from adding work. The limit is view-specific.
+
 When a downstream column is at or above its WIP limit, prefer helping finish work already in the system before starting new work.
 
 **Default rule: finish before starting.**
@@ -116,6 +118,7 @@ Keep metadata minimal.
 ### Required project fields
 
 - **Status:** Backlog / Todo / In Progress / Review / Verify / Done
+- **Work Type:** Feature / Bug / Experiment / Task
 - **Priority:** P0 / P1 / P2 / P3
 - **Effort:** XS / S / M / L / XL
 - **Area:** Field Profitability / Data Collection / Decision Intelligence / Platform
@@ -142,9 +145,11 @@ Use relative size only:
 
 An XL item is a signal to reconsider scope and split into smaller vertical slices before entering Todo.
 
-## 6. Issue types
+## 6. Work types
 
-Use four primary work-item types:
+Use four primary work-item types in the project field **Work Type**.
+
+For the current user-owned PROFIT Project, `Work Type` is the project-level classification field. If PROFIT later moves to a GitHub Organization, evaluate migration to native organization Issue Types rather than maintaining duplicate classification fields.
 
 - **Feature** — delivers user/product capability.
 - **Bug** — repairs incorrect accepted/released behaviour.
@@ -267,16 +272,20 @@ Columns:
 Apply WIP limits to Todo, In Progress, Review and Verify.
 
 ### 02 — Current Iteration
-Filter to the current Iteration and exclude Done when focusing on active work.
+Board grouped by Status.
+
+Filter:
+
+`iteration:@current -status:Done`
 
 ### 03 — Blocked & Risks
 Show open items with dependencies/blockers, P0/P1 priority, failed verification or release risk.
 
 ### 04 — Bugs
-Show Bug items, sorted P0 → P3.
+Table filtered to **Work Type = Bug** and excluding Done, sorted P0 → P3.
 
 ### 05 — Experiments
-Show Experiment items, including hypothesis and decision outcome.
+Table filtered to **Work Type = Experiment**, including hypothesis and decision outcome.
 
 ### 06 — Roadmap
 Roadmap layout using Iteration/Target Release/date fields.
@@ -284,10 +293,24 @@ Roadmap layout using Iteration/Target Release/date fields.
 ### 07 — My Work
 Filter:
 
-`assignee:@me status:!Done`
+`assignee:@me -status:Done`
 
 ### 08 — Release
-Filter to the active Target Release and group by Status or Area.
+Filter to the active Target Release and group by Status.
+
+### Project automation policy
+
+A newly created GitHub Project may enable default workflows that move closed issues/pull requests to Done and merged pull requests to Done. For PROFIT, these must not bypass Verify.
+
+Initial policy:
+
+- newly added project items → **Backlog**;
+- do **not** use `PR merged → Done`;
+- do **not** rely on issue closure to mean product verification;
+- move the delivery issue to **Verify** only when review is complete and the change is merged/deployed to the verification environment;
+- move `Verify → Done` only after the Definition of Done is actually satisfied.
+
+If pull requests are also shown as separate Project items, do not confuse PR lifecycle state with the delivery issue's product status.
 
 ## 12. Cadence
 
@@ -398,9 +421,11 @@ Preferred branch patterns:
 - `exp/<issue>-short-description`
 - `chore/<issue>-short-description`
 
-When practical, reference the issue in the PR body with:
+For normal delivery work that still requires post-merge Verify, reference the issue in the PR body with:
 
-`Closes #123`
+`Refs #123`
+
+Use `Closes #123` only when merging the PR itself satisfies the item's Definition of Done and no separate post-merge Verify step remains. Otherwise GitHub may close the issue before product/domain verification is complete.
 
 Keep PRs small enough to review quickly and safely.
 
