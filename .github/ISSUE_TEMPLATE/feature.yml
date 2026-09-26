@@ -49,6 +49,16 @@ body:
     validations:
       required: true
   - type: textarea
+    id: ux
+    attributes:
+      label: UX / design
+      description: Link the relevant flow/prototype. Identify important loading, empty, error, offline/stale, responsive or accessibility states when relevant.
+  - type: textarea
+    id: data_trust
+    attributes:
+      label: Data certainty / trust
+      description: For material values, state whether inputs/outputs are observed, entered, calculated, estimated, modelled or predicted, and how uncertainty/provenance should be shown.
+  - type: textarea
     id: dependencies
     attributes:
       label: Dependencies / risks

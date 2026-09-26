@@ -6,29 +6,12 @@
 
 **Powered by the PROFIT Framework™**
 
-**P — Production**
-
-Optimize what you produce.
-
-**R — Revenue**
-
-Understand what you earn.
-
-**O — Operations**
-
-Run the farm efficiently.
-
-**F — Finance**
-
-Know the true economics.
-
-**I — Intelligence**
-
-Turn data into better decisions.
-
-**T — Trade**
-
-Buy and sell at the right time.
+**P — Production** — Optimize what you produce.  
+**R — Revenue** — Understand what you earn.  
+**O — Operations** — Run the farm efficiently.  
+**F — Finance** — Know the true economics.  
+**I — Intelligence** — Turn data into better decisions.  
+**T — Trade** — Buy and sell at the right time.
 
 **Farm Data → PROFIT Framework → Intelligence → Action → Verified Profit**
 
@@ -62,7 +45,7 @@ PROFIT will start as a **modular monolith** for the transactional product layer,
 
 | Area | Planned technologies |
 | --- | --- |
-| Web | Next.js, React, TypeScript, TanStack Query, Tailwind CSS, ECharts, MapLibre, Zod |
+| Web | Next.js, React, TypeScript, TanStack Query, Tailwind CSS, shadcn/ui, accessible primitives, ECharts, MapLibre, Zod |
 | Core backend | Node.js, TypeScript, NestJS, Fastify adapter |
 | Persistence | PostgreSQL, PostGIS, Prisma + explicit SQL where appropriate |
 | Intelligence | Python, Pydantic, Polars, NumPy, SciPy, scikit-learn |
@@ -70,33 +53,32 @@ PROFIT will start as a **modular monolith** for the transactional product layer,
 | Cloud | AWS ECS Fargate, RDS, S3, ECR, CloudWatch, Secrets Manager, IAM |
 | Infrastructure | Terraform, Docker, GitHub Actions |
 | Observability | OpenTelemetry, CloudWatch, Sentry |
-| Testing | Jest/Supertest, pytest/Hypothesis, Vitest/Testing Library, Playwright |
+| Testing | Jest/Supertest, pytest/Hypothesis, Vitest/Testing Library, Storybook, Playwright |
 | Later, when justified | React Native, Athena, dbt, Kinesis, Go |
 
-The detailed technology decision, boundaries, rationale and phased adoption rules live in **[docs/engineering/technology-stack.md](docs/engineering/technology-stack.md)**.
+The detailed technology decision lives in **[docs/engineering/technology-stack.md](docs/engineering/technology-stack.md)**.
+
+## Product Design System
+
+PROFIT uses a production-oriented design-system contract:
+
+**Farmer problem → UX intent → semantic design system → production component → farmer outcome → VEV learning**
+
+The authoritative design-system documentation is **[docs/product/design-system/](docs/product/design-system/README.md)**. Figma owns design intent; production code owns production behaviour.
 
 ## Development Workflow
 
-PROFIT uses a pull-based GitHub delivery workflow:
+PROFIT uses:
 
 **Backlog → Todo → In Progress → Review → Verify → Done**
 
-The operating rules, WIP limits, Definition of Ready, Definition of Done, expedite policy, metrics and GitHub Project configuration are documented in **[docs/engineering/development-operating-system.md](docs/engineering/development-operating-system.md)**.
+See **[docs/engineering/development-operating-system.md](docs/engineering/development-operating-system.md)**.
 
 ## Documentation
 
 Product planning and project documentation are organized under **[docs/](docs/README.md)**.
 
-Key areas include:
-
-- product;
-- farmer problems;
-- crop production;
-- livestock;
-- farm economics;
-- branding;
-- engineering;
-- market.
+Key areas include product, farmer problems, crop production, livestock, farm economics, branding, engineering and market.
 
 ## Engineering Principles
 
