@@ -6,7 +6,9 @@ Describe the smallest meaningful change delivered by this PR.
 
 What problem, issue, bug, experiment or risk does this address?
 
-Closes #
+Refs #
+
+> Use `Closes #` only when this merge itself completes the linked issue's Definition of Done. Otherwise keep the issue open for Verify.
 
 ## Verification
 
