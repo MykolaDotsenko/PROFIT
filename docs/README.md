@@ -8,8 +8,13 @@ Only eight main areas:
 - `livestock/` — livestock, dairy and swine knowledge.
 - `farm-economics/` — profitability, costs, ROI, formulas and KPIs.
 - `branding/` — brand strategy, name, slogan, logo and visual identity.
-- `engineering/` — architecture, technology stack, data and integrations.
+- `engineering/` — architecture, technology stack, data, integrations and development workflow.
 - `market/` — competitors, pricing, monetization, sales, marketing and SEO.
+
+## Key Engineering Documents
+
+- **[Technology Stack](engineering/technology-stack.md)**
+- **[Development Operating System](engineering/development-operating-system.md)**
 
 ## Product Rule
 
