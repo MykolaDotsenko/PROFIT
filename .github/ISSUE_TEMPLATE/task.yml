@@ -1,0 +1,32 @@
+name: Task
+description: Engineering, documentation, infrastructure or enabling work.
+title: "[Task] "
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What concrete outcome must this task produce?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why now?
+      description: What problem, dependency, risk or delivery objective makes this worth doing now?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / risks
+      description: Blockers, affected modules, migrations, security, data or operational risks.

@@ -1,0 +1,53 @@
+name: Experiment
+description: Test a product, data, ML, agronomy, UX or technical hypothesis.
+title: "[Experiment] "
+body:
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis
+      description: State the falsifiable hypothesis.
+    validations:
+      required: true
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline / counterfactual
+      description: What do we compare against?
+    validations:
+      required: true
+  - type: textarea
+    id: metric
+    attributes:
+      label: Primary success metric
+      description: What metric determines whether the experiment worked?
+    validations:
+      required: true
+  - type: textarea
+    id: guardrails
+    attributes:
+      label: Guardrails
+      description: What must not materially worsen?
+    validations:
+      required: true
+  - type: textarea
+    id: test
+    attributes:
+      label: Smallest valuable experiment
+      description: Minimum scope needed to learn reliably.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Data / evidence source
+      description: Provenance, freshness, representativeness and known limitations.
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision rule
+      description: Define Kill / Improve / Scale criteria before material work begins.
+    validations:
+      required: true

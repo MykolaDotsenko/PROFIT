@@ -1,0 +1,60 @@
+name: Feature
+description: Propose a user-facing or product capability.
+title: "[Feature] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user/farmer problem are we solving?
+      placeholder: Describe the problem, not only the proposed solution.
+    validations:
+      required: true
+  - type: textarea
+    id: user
+    attributes:
+      label: User / context
+      description: Who experiences this problem, and in what context?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Customer evidence, data, research, observation, or current workflow supporting the need.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: What should become better for the user or business?
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Expected value
+      description: State expected economic/product value. Do not call it verified before evidence exists.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Concrete conditions that must be true for Verify to pass.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / risks
+      description: Known blockers, dependencies, irreversible decisions, data or security risks.
+  - type: textarea
+    id: simpler
+    attributes:
+      label: Simpler alternative
+      description: What is the minimum sufficient solution or smallest valuable slice?

@@ -34,7 +34,7 @@ Buy and sell at the right time.
 
 ## Product Logic
 
-```text
+~~~text
 Farm Data
     ↓
 PROFIT Framework
@@ -44,7 +44,7 @@ Intelligence
 Action
     ↓
 Verified Profit
-```
+~~~
 
 The system should help answer practical questions such as:
 
@@ -73,7 +73,15 @@ PROFIT will start as a **modular monolith** for the transactional product layer,
 | Testing | Jest/Supertest, pytest/Hypothesis, Vitest/Testing Library, Playwright |
 | Later, when justified | React Native, Athena, dbt, Kinesis, Go |
 
-The detailed technology decision, boundaries, rationale and phased adoption rules live in **[docs/engineering/technology-stack.md](docs/13-architecture-engineering/technology-stack.md)**.
+The detailed technology decision, boundaries, rationale and phased adoption rules live in **[docs/engineering/technology-stack.md](docs/engineering/technology-stack.md)**.
+
+## Development Workflow
+
+PROFIT uses a pull-based GitHub delivery workflow:
+
+**Backlog → Todo → In Progress → Review → Verify → Done**
+
+The operating rules, WIP limits, Definition of Ready, Definition of Done, expedite policy, metrics and GitHub Project configuration are documented in **[docs/engineering/development-operating-system.md](docs/engineering/development-operating-system.md)**.
 
 ## Documentation
 
@@ -98,6 +106,7 @@ Key areas include:
 - Use asynchronous processing where failure isolation or long-running work justifies it.
 - Design event consumers for retries, idempotency, dead-letter handling and observability.
 - Add infrastructure only when the product or measured system behaviour justifies it.
+- Prefer finishing valuable work over maximizing work in progress.
 
 ## Status
 
