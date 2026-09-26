@@ -1,0 +1,72 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+secrets/
+.credentials/
+
+# Node / frontend
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.nyc_output/
+.turbo/
+.vercel/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Test / browser artifacts
+playwright-report/
+test-results/
+blob-report/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+
+# Logs / temp
+*.log
+tmp/
+temp/
+.cache/
+
+# Local databases / data dumps
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+
+# Keep example configuration files
+!.env.example
